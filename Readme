@@ -1,0 +1,131 @@
+# Authentication Token Module (JWT)
+
+## Overview
+This module implements **User Authentication and Authorization** for the ATS Backend System using **JWT (JSON Web Token)**. It provides secure mechanisms for user login, token generation, validation, and role-based access control.
+
+---
+
+## Features
+- **User Authentication**: Verifies user credentials and generates JWT tokens.
+- **Token Validation**: Validates incoming requests for authenticity and permissions.
+- **Role-Based Authorization**: Enforces role-based access control using claims in the JWT token.
+- **Endpoints**:
+  - User Registration (`/register`)
+  - User Login (`/login`)
+  - Password Recovery (`/recover`)
+
+---
+
+## Prerequisites
+
+### Environment Variables
+The following environment variables need to be set for the module to function correctly:
+- `Jwt:Issuer`: The issuer of the JWT token (e.g., your server name).
+- `Jwt:Audience`: The intended audience for the JWT token (e.g., your application).
+- `Jwt:Key`: A secret key used to sign the JWT token.
+
+---
+
+## Installation
+
+### Step 1: Install Dependencies
+Ensure the following NuGet packages are installed in your project:
+```bash
+    dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+    dotnet add package Microsoft.IdentityModel.Tokens
+```
+
+### Step 2: Add Configuration
+Add the following to your `appsettings.json` file:
+```json
+"Jwt": {
+  "Issuer": "YourIssuerName",
+  "Audience": "YourAudienceName",
+  "Key": "YourSecretKey"
+}
+```
+
+---
+
+## Usage
+
+### 1. Configure Authentication and Authorization
+Add the following configuration in your `Program.cs` file:
+```csharp
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+
+builder.Services.AddAuthorization();
+```
+Ensure the middleware is added:
+```csharp
+app.UseAuthentication();
+app.UseAuthorization();
+```
+
+### 2. Generate JWT Tokens
+Use the `TokenService` class to generate tokens:
+```csharp
+var tokenService = new TokenService("YourSecretKey");
+string token = tokenService.GenerateToken(username, role);
+```
+
+### 3. Protect API Endpoints
+Secure endpoints by applying the `[Authorize]` attribute. For role-based protection, specify roles:
+```csharp
+[Authorize(Roles = "Admin")]
+[HttpGet("admin/data")]
+public IActionResult GetAdminData()
+{
+    return Ok("This is admin-only data.");
+}
+```
+
+---
+
+## Testing
+
+1. Use **Postman** to test the endpoints:
+   - **Login**: Send a POST request to `/login` with valid credentials and retrieve a JWT token.
+   - **Protected Routes**: Use the token in the `Authorization` header (`Bearer <Token>`) to access protected endpoints.
+
+2. Write unit tests for token validation using **xUnit**.
+
+---
+
+## Dependencies
+
+- **Frontend**: Ensure the frontend passes the token in the `Authorization` header for all secured API requests.
+- **Database**: Requires a `Users` table with fields for `Username`, `PasswordHash`, and `Role`.
+- **Email Service**: For implementing password recovery via email.
+
+---
+
+## Future Enhancements
+
+- Implement **Multi-Factor Authentication (MFA)**.
+- Add support for **OAuth2** for third-party integrations.
+- Include token refresh functionality for long-lived sessions.
+
+---
+
+## Contributing
+Feel free to open issues or submit pull requests to improve this module. For major changes, please discuss with the team first.
+
+---
+
+## License
+This module is licensed under the MIT License. See the LICENSE file for details.
+
