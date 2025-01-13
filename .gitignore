@@ -1,0 +1,65 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore user-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore package directories
+packages/
+.vscode/
+.idea/
+
+# Ignore NuGet packages
+*.nupkg
+*.snupkg
+
+# Ignore build directories
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Ignore logs
+*.log
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore publish output
+publish/
+
+# Ignore configuration files
+appsettings*.json
+
+# Ignore Rider files
+.idea/
+
+# Ignore Visual Studio Code files
+.vscode/
+
+# Ignore JetBrains Rider files
+.idea/
+*.sln.iml
+
+# Ignore ReSharper files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Ignore coverage files
+coverage/
+*.coverage
+*.coveragexml
+
+# Ignore database files
+*.mdf
+*.ldf
+
+# Ignore other files
+*.dbmdl
+*.jfm
