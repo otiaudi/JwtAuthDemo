@@ -17,8 +17,12 @@ var jwtAudience = builder.Configuration["Jwt:Audience"]
 builder.Services.AddControllers();  // Ensure this line is here to register controllers
 
 
-// Register TokenService with the Jwt configuration
+// Register Services with the Jwt configuration
 builder.Services.AddSingleton<TokenService>(new TokenService(jwtKey, jwtIssuer, jwtAudience));
+builder.Services.AddSingleton<RefreshTokenService>();
+builder.Services.AddSingleton<TokenValidationService>();
+
+builder.Logging.AddConsole();
 
 
 // Add JWT Authentication
