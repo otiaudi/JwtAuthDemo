@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using YourNamespace.Models;
 
 
-namespace YourNamespace.Controllers
+namespace JwtAuthDemo.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -82,8 +82,9 @@ namespace YourNamespace.Controllers
         }
 
         // Protected endpoint to test the JWT token
+        [Authorize]
         [HttpGet("protected-data")]
-        [Authorize] // This ensures the endpoint requires a valid JWT token
+         // This ensures the endpoint requires a valid JWT token
         public IActionResult GetProtectedData()
         {
              if (!User.Identity?.IsAuthenticated ?? false)
