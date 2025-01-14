@@ -1,0 +1,54 @@
+# .gitignore file for a .NET project
+
+# Ignore build and runtime files
+bin/
+obj/
+
+# User-specific files
+*.user
+*.vspscc
+*.vssscc
+
+# Rider files
+.idea/
+
+# Visual Studio Code files
+.vscode/
+
+# Packages
+*.nupkg
+*.snupkg
+
+# Logs
+*.log
+
+# Environment variable files
+.env
+
+# Configuration files with secrets
+appsettings.*.json
+!appsettings.json
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+~$
+
+# Dependency caches
+node_modules/
+
+# Test results
+TestResults/
+
+# Docker files
+.dockerignore
+docker-compose.override.yml
+
+# JetBrains IDEs
+.idea/
+*.sln.iml
+_ReSharper*/
