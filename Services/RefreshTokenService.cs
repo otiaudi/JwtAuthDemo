@@ -22,11 +22,24 @@ namespace JwtAuthDemo.Services
 
         public RefreshToken CreateRefreshToken(string username)
         {
+            var oldToken = _refreshTokens.FirstOrDefault(t => t.Username == username && !t.IsRevoked);
+            if (oldToken != null)
+            {
+                // if (oldToken != null)
+                // {
+                    if (oldToken.Token != null)
+                    {
+                        RevokeRefreshToken(oldToken.Token);  // Revoke the old refresh token
+                    }
+                // }
+            }
+            
             var token = new RefreshToken
             {
                 Token = GenerateRefreshToken(),
                 Username = username,
-                ExpiryDate = DateTime.UtcNow.AddDays(7),
+                // ExpiryDate = DateTime.UtcNow.AddDays(7),
+                ExpiryDate = GetRefreshTokenExpiry(),
                 IsRevoked = false
             };
 
@@ -77,7 +90,8 @@ namespace JwtAuthDemo.Services
 
         public DateTime GetRefreshTokenExpiry()
         {
-            return DateTime.UtcNow.AddDays(7); // Set expiry for 7 days
+            return DateTime.UtcNow.AddDays(7); 
+           
         }
 
     }

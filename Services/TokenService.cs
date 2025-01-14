@@ -34,7 +34,8 @@ namespace JwtAuthDemo.Services
                 issuer: _jwtIssuer,     
                 audience: _jwtAudience,
                 claims: claims,
-                expires: DateTime.Now.AddHours(1),
+                // expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddMinutes(1), // For testing purposes
                 signingCredentials: creds
             );
 
