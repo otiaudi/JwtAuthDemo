@@ -3,7 +3,7 @@ using JwtAuthDemo.Services;
 using Microsoft.AspNetCore.Authorization;
 
 
-namespace YourNamespace.Controllers
+namespace JwtAuthDemo.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
