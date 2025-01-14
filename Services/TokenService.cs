@@ -31,10 +31,15 @@ namespace JwtAuthDemo.Services
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: _jwtIssuer,     // Use values from configuration
-                audience: _jwtAudience, // Use values from configuration
+                issuer: _jwtIssuer,     
+                audience: _jwtAudience,
                 claims: claims,
+
+                // expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddMinutes(1), // For testing purposes
+
                 expires: DateTime.Now.AddMinutes(1),
+
                 signingCredentials: creds
             );
 
