@@ -31,8 +31,9 @@ namespace YourNamespace.Controllers
 
         
         // Protected endpoint to test the JWT token
+        [Authorize]
         [HttpGet("protected-data")]
-        [Authorize] // This ensures the endpoint requires a valid JWT token
+         // This ensures the endpoint requires a valid JWT token
         public IActionResult GetProtectedData()
         {
             return Ok(new { Message = "This is protected data. You are authorized!" });

@@ -1,8 +1,8 @@
 
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using Microsoft.IdentityModel.Tokens;  //provide tools for creating and validating tokens
+using System.IdentityModel.Tokens.Jwt; // contains functionality for creating and handling JWT 
+using System.Security.Claims;     //    Used to define claims, whhich are key-value pairs representing  user related information                                                                                                                                                                                                                                                                                                                                                                                 
+using System.Text; //for encoding and decoding text-converting strings to bytes
 
 namespace JwtAuthDemo.Services
 {
@@ -34,7 +34,7 @@ namespace JwtAuthDemo.Services
                 issuer: _jwtIssuer,     // Use values from configuration
                 audience: _jwtAudience, // Use values from configuration
                 claims: claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddMinutes(1),
                 signingCredentials: creds
             );
 
